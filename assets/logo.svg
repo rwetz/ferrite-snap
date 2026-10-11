@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 24 24" shape-rendering="crispEdges">
+<title>Snap</title>
+<rect width="24" height="24" fill="#0B0B0C"/>
+<rect x="1" y="1" width="22" height="22" fill="#2A2A2E"/>
+<rect x="2" y="2" width="20" height="20" fill="#0B0B0C"/>
+<rect x="3" y="5" width="11" height="14" fill="#8E8E92"/>
+<rect x="4" y="6" width="9" height="12" fill="#0B0B0C"/>
+<rect x="10" y="3" width="11" height="14" fill="#E8E8E6"/>
+<rect x="11" y="4" width="9" height="12" fill="#0B0B0C"/>
+<rect x="12" y="7" width="3" height="3" fill="#F2A93B"/>
+<rect x="16" y="11" width="3" height="3" fill="#F2A93B"/>
+<rect x="5" y="13" width="3" height="3" fill="#8E8E92"/>
+</svg>

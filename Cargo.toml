@@ -1,0 +1,29 @@
+[package]
+name = "ferrite-snap"
+version = "0.1.0"
+description = "Ferrite gallery snapshots, baselines and visual regression comparisons."
+license = "Apache-2.0"
+authors = ["Ryan Wetzstein"]
+repository = "https://github.com/rwetz/ferrite-snap"
+readme = "README.md"
+edition = "2024"
+rust-version = "1.92"
+
+[dependencies]
+raw-window-handle = "0.6"
+futures = "0.3"
+chrono = "0.4"
+serde_json = "1"
+ureq = "3"
+image = { version = "0.25", default-features = false, features = ["jpeg", "png", "webp"] }
+ferrite-design = { git = "https://github.com/rwetz/ferrite-design", rev = "4ddbb40bf34e219278784fdcb4e5d0e4e76f4cdc" }
+# Must match ferrite-design exactly (PITFALLS §1).
+gpui = { package = "gpui-pre", version = "=0.3.8" }
+gpui_platform = { package = "gpui-pre-platform", version = "=0.3.8" }
+
+# gpui is sluggish unoptimised; optimise dependencies even in dev builds.
+[profile.dev.package."*"]
+opt-level = 3
+
+[target."cfg(windows)".build-dependencies]
+winresource = "0.1.31"
