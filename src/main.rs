@@ -2,6 +2,7 @@
 mod capture;
 mod compare;
 mod gallery;
+mod prefs;
 mod probe;
 mod worker;
 use ferrite_design::prelude::*;
@@ -139,9 +140,24 @@ impl Snap {
                 commands.push(
                     command(format!("Scheme: {}", scheme.name))
                         .group("Theme")
-                        .on_run(move |_, cx| theme::set_scheme(scheme, cx)),
+                        .on_run(move |_, cx| prefs::scheme(scheme, cx)),
                 );
             }
+            commands.push(
+                command("Toggle light / dark")
+                    .group("Theme")
+                    .on_run(|w, cx| {
+                        prefs::appearance(
+                            if theme::appearance(cx) == Appearance::Light {
+                                Appearance::Dark
+                            } else {
+                                Appearance::Light
+                            },
+                            w,
+                            cx,
+                        )
+                    }),
+            );
             commands.push(
                 command("Capture selected page in every scheme")
                     .group("Snap")
@@ -441,8 +457,7 @@ fn main() {
         return;
     }
     gpui_platform::application().run(|cx: &mut App| {
-        ferrite_design::init(Appearance::Dark, cx);
-        theme::apply_env(cx);
+        prefs::init(cx);
         cx.bind_keys([KeyBinding::new("ctrl-shift-p", TogglePalette, None)]);
         let options =
             chrome::remembered_window_options("snap", "Snap", size(px(1320.), px(900.)), cx);
