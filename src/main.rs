@@ -34,9 +34,14 @@ struct Shot {
     label: String,
 }
 fn preview(path: &Path) -> Preview {
-    image::open(path)
-        .ok()
-        .map(|i| Arc::new(RenderImage::new([image::Frame::new(i.into_rgba8())])))
+    image::open(path).ok().map(|i| {
+        // RenderImage uploads BGRA. The saved PNG remains RGB.
+        let mut pixels = i.into_rgba8();
+        for pixel in pixels.pixels_mut() {
+            pixel.0.swap(0, 2);
+        }
+        Arc::new(RenderImage::new([image::Frame::new(pixels)]))
+    })
 }
 fn key(page: usize, scheme: &str, light: bool) -> String {
     format!(
