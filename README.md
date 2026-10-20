@@ -18,6 +18,10 @@ Rust 1.92 or newer: cargo run. cargo test and cargo clippy --all-targets validat
 
 The gallery source is vendored from rwetz/ferrite-design at commit 4ddbb40bf34e219278784fdcb4e5d0e4e76f4cdc, with capture-specific entrypoint, date, and reduced-motion changes. Update that source and the dependency together when updating the design system. Apache-2.0.
 
+## Settings
+
+Open the sliders button in the title bar, press Ctrl+, or choose Settings from the command palette. All ten schemes, Dark/Light/System appearance, motion refresh rate (12 to 240 FPS), and row density apply immediately and persist per app. Save failures appear in Settings. Start with `--settings` to open the drawer directly. Ferrite launcher environment overrides take precedence at startup.
+
 ---
 
 <p align="center">

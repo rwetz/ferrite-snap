@@ -3,7 +3,9 @@ mod capture;
 mod compare;
 mod gallery;
 mod prefs;
+mod prefs_store;
 mod probe;
+mod settings_ui;
 mod worker;
 use ferrite_design::prelude::*;
 use gpui::StyledImage;
@@ -133,11 +135,13 @@ struct Snap {
     confirm: bool,
     job: Option<Task<()>>,
     palette: Entity<CommandPalette>,
+    settings: Entity<settings_ui::Settings>,
     _appearance: Subscription,
 }
 impl Snap {
     fn new(window: &mut Window, cx: &mut Context<Self>) -> Self {
         let weak = cx.weak_entity();
+        let settings = cx.new(|_| settings_ui::Settings::new());
         let palette = cx.new(|cx| CommandPalette::new(window, cx));
         palette.update(cx, |p, cx| {
             let mut commands = Vec::new();
@@ -170,6 +174,7 @@ impl Snap {
                         let _ = weak.update(cx, |s, cx| s.capture(false, cx));
                     }),
             );
+            commands.push(settings_ui::settings_command(settings.clone()));
             p.set_commands(commands, cx);
         });
         Self {
@@ -181,6 +186,7 @@ impl Snap {
             confirm: false,
             job: None,
             palette,
+            settings,
             _appearance: theme::follow_system(window),
         }
     }
@@ -383,8 +389,16 @@ impl Render for Snap {
                 .on_action(cx.listener(|s, _: &TogglePalette, w, cx| {
                     s.palette.update(cx, |p, cx| p.toggle(w, cx))
                 }))
+                .on_action(cx.listener(|this, _: &settings_ui::ToggleSettings, _, cx| {
+                    this.settings.update(cx, |s, cx| s.toggle(cx));
+                }))
+                .child(self.settings.clone())
                 .child(self.palette.clone())
-                .child(title_bar("Snap").child(menu))
+                .child(
+                    title_bar("Snap")
+                        .child(settings_ui::button(self.settings.clone()))
+                        .child(menu),
+                )
                 .child(
                     div()
                         .p_3()
@@ -463,7 +477,10 @@ fn main() {
     }
     gpui_platform::application().run(|cx: &mut App| {
         prefs::init(cx);
-        cx.bind_keys([KeyBinding::new("ctrl-shift-p", TogglePalette, None)]);
+        cx.bind_keys([
+            KeyBinding::new("ctrl-shift-p", TogglePalette, None),
+            KeyBinding::new("ctrl-,", settings_ui::ToggleSettings, None),
+        ]);
         let options =
             chrome::remembered_window_options("snap", "Snap", size(px(1320.), px(900.)), cx);
         cx.open_window(options, |w, cx| {
