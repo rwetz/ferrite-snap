@@ -17,3 +17,12 @@ Download the Windows x64 zip from Releases, or install Snap through Lodestone. E
 Rust 1.92 or newer: cargo run. cargo test and cargo clippy --all-targets validate comparison and release rules. `--version` prints the version; `--smoke` checks the pixel comparison. `--capture PAGE_INDEX SCHEME OUTPUT.png [--light]` captures a real native gallery page (0 through 7).
 
 The gallery source is vendored from rwetz/ferrite-design at commit 4ddbb40bf34e219278784fdcb4e5d0e4e76f4cdc, with capture-specific entrypoint, date, and reduced-motion changes. Update that source and the dependency together when updating the design system. Apache-2.0.
+
+---
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/brand/heptagram-white.svg">
+    <img src="docs/brand/heptagram-black.svg" alt="heptagram" width="48">
+  </picture>
+</p>
