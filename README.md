@@ -1,6 +1,20 @@
-# Snap
+<p align="center">
+  <img src="assets/logo.svg" width="128" height="128" alt="Snap logo">
+</p>
 
-![Snap icon](assets/logo.svg)
+<h1 align="center">Snap</h1>
+
+<p align="center">
+  A visual-regression workbench for the Ferrite component gallery.
+</p>
+
+<p align="center">
+  <a href="https://github.com/rwetz/ferrite-snap/actions/workflows/ci.yml"><img src="https://github.com/rwetz/ferrite-snap/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/rwetz/ferrite-snap/releases/latest"><img src="https://img.shields.io/github/v/release/rwetz/ferrite-snap?color=F2A93B&labelColor=18181B" alt="Latest release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-3D3D42?labelColor=18181B" alt="License"></a>
+</p>
+
+<!-- TODO(readme-standard): add docs/main.png, a screenshot of Snap showing real captures -->
 
 A native visual-regression workbench for the real Ferrite component gallery. Capture Controls, Forms, Data & input, Navigation, Charts, ASCII, Layout, and Motion in every shipped scheme. Choose light or dark captures independently. View baseline, current, and accent-highlighted differences side by side.
 
@@ -21,6 +35,13 @@ The gallery source is vendored from rwetz/ferrite-design at commit 4ddbb40bf34e2
 ## Settings
 
 Open the sliders button in the title bar, press Ctrl+, or choose Settings from the command palette. All ten schemes, Dark/Light/System appearance, motion refresh rate (12 to 240 FPS), and row density apply immediately and persist per app. Save failures appear in Settings. Start with `--settings` to open the drawer directly. Ferrite launcher environment overrides take precedence at startup.
+
+## Keys
+
+| Keys | |
+|---|---|
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> | Command palette |
+| <kbd>Ctrl</kbd>+<kbd>,</kbd> | Settings |
 
 ---
 
